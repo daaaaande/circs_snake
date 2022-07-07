@@ -1,4 +1,4 @@
-#  For complete documentation for circs_snake please go to doc/ in this repo
+#  For complete documentation for circs_snake please open circs_snake_manual.md in this repo
 circs_snake: a snakemake workflow for circular RNA detection and quantification based on find_circ, DCC and CIRCexplorer1.
 
 ## how to get started
