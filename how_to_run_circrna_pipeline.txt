@@ -1,0 +1,16 @@
+# first, get paired-end bulk RNA-Seq reads into this directory: cp *.fastq /gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/.
+# create list of all used .fastq files : ls -f1 /gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/*.fastq >/gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/fastqs.list 
+# then, create a samplesheet: perl /gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/circs_snake-master/scripts/fastq_list_to_infile_creator.pl --i /gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/fastqs.list --l1 _R1_001 --l2 _R2_001 >/gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/samples.tsv 
+# re-attach a screen session, or create one: screen -dr snake_circs 
+# start an interactive job: qsub -q default -I job_scripts/interactive_snake.sh
+# ssh to the snakemake node: ssh snakemake-node
+# load the needed modules: module load Snakemake/5.10.0 + module load Miniconda/3_snakemake
+# check if only files from samples included in samples.tsv are in /gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/
+# edit config.yaml: lane identifiers + run_name: the dataset needs a unique name!
+# for the exectution itself, check the file /gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/circs_snake-master/howtorun.sh
+
+### notes:
+- only the in this run needed .fastq file should be in the folder /gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/. not more, not less!
+- samplename + lane identifier + ".fastq" should result in the exact filenames in /gpfs/project/projects/bmfz_gtl/software/circRNA_pipeline/, make sure to always use the same lane identifiers for all samples on the same run!
+- collect the normalized + voted outfiles from dc_out/"your_run_name"/*.mat2 <- should have  voted + normed + run name in the filename
+- after each run you can delete: dc_out/run_* fc_out/run_* cx_out/run_* . this way all in-between files are gone but result files are kept. 
